@@ -1,0 +1,151 @@
+
+postgres=# CREATE TABLE COMPANY(
+postgres(# ID INT,
+postgres(# NAME VARCHAR(255),
+postgres(# AGE INT,
+postgres(# PRIMARY KEY(ID)
+postgres(# );
+CREATE TABLE
+
+postgres=# \d COMPANY
+                      Table "public.company"
+ Column |          Type          | Collation | Nullable | Default
+--------+------------------------+-----------+----------+---------
+ id     | integer                |           | not null |
+ name   | character varying(255) |           |          |
+ age    | integer                |           |          |
+Indexes:
+    "company_pkey" PRIMARY KEY, btree (id)
+
+
+postgres=# insert into company(id, name, age) values (1, 'thorfinn', 15);
+INSERT 0 1
+postgres=# insert into company(id, name, age) values (2, 'askeladd', 45);
+INSERT 0 1
+postgres=# insert into company(id, name, age) values (3, 'thorkell', 39);
+INSERT 0 1
+postgres=# insert into company(id, name, age) values (4, 'floki', 33);
+INSERT 0 1
+postgres=# insert into company(id, name, age) values (5, 'canute', 17);
+INSERT 0 1
+postgres=# insert into company(id, name, age) values (6, 'ylva', 18);
+INSERT 0 1
+postgres=# insert into company(id, name, age) values (7, 'thors', 42);
+INSERT 0 1
+
+postgres=# select * from company;
+ id |   name   | age
+----+----------+-----
+  1 | thorfinn |  15
+  2 | askeladd |  45
+  3 | thorkell |  39
+  4 | floki    |  33
+  5 | canute   |  17
+  6 | ylva     |  18
+  7 | thors    |  42
+(7 rows)
+
+postgres=# select * from company where age>40;
+ id |   name   | age
+----+----------+-----
+  2 | askeladd |  45
+  7 | thors    |  42
+(2 rows)
+
+postgres=# select name,age from company where age<20;
+   name   | age
+----------+-----
+ thorfinn |  15
+ canute   |  17
+ ylva     |  18
+(3 rows)
+
+postgres=# select * from company where name like 'thor%';
+ id |   name   | age
+----+----------+-----
+  1 | thorfinn |  15
+  3 | thorkell |  39
+  7 | thors    |  42
+(3 rows)
+
+postgres=# select * from company where name like 't__r%';
+ id |   name   | age
+----+----------+-----
+  1 | thorfinn |  15
+  3 | thorkell |  39
+  7 | thors    |  42
+(3 rows)
+
+postgres=# select * from company where name like 'y_v_';
+ id | name | age
+----+------+-----
+  6 | ylva |  18
+(1 row)
+
+
+
+postgres=# select * from company where age between 20 and 40;
+ id |   name   | age
+----+----------+-----
+  3 | thorkell |  39
+  4 | floki    |  33
+(2 rows)
+
+postgres=# select * from company where age in(17,19);
+ id |  name  | age
+----+--------+-----
+  5 | canute |  17
+(1 row)
+
+
+
+postgres=# CREATE TABLE BRANCH(
+postgres(# BranchNo INT PRIMARY KEY,
+postgres(# BRANCHNAME VARCHAR(255) NOT NULL,
+postgres(# CITY VARCHAR(255) NOT NULL,
+postgres(# PINCODE INTEGER
+postgres(# );
+CREATE TABLE
+
+postgres=# )\d branch
+                        Table "public.branch"
+   Column   |          Type          | Collation | Nullable | Default
+------------+------------------------+-----------+----------+---------
+ branchno   | integer                |           | not null |
+ branchname | character varying(255) |           | not null |
+ city       | character varying(255) |           | not null |
+ pincode    | integer                |           |          |
+Indexes:
+    "branch_pkey" PRIMARY KEY, btree (branchno)
+
+
+postgres=# CREATE TABLE STAFF(
+postgres(# STAFFNO INT PRIMARY KEY,
+postgres(# FNAME VARCHAR(255) NOT NULL,
+postgres(# LNAME VARCHAR(255),
+postgres(# POSITION VARCHAR(255),
+postgres(# GENDER CHAR,
+postgres(# SALARY FLOAT(8),
+postgres(# BRANCHNO INT,
+postgres(# CONSTRAINT BRANCHNO
+postgres(# FOREIGN KEY(BRANCHNO)
+postgres(# REFERENCES BRANCH(BRANCHNO)
+postgres(# );
+CREATE TABLE
+
+postgres=# \d staff
+                        Table "public.staff"
+  Column  |          Type          | Collation | Nullable | Default
+----------+------------------------+-----------+----------+---------
+ staffno  | integer                |           | not null |
+ fname    | character varying(255) |           | not null |
+ lname    | character varying(255) |           |          |
+ position | character varying(255) |           |          |
+ gender   | character(1)           |           |          |
+ salary   | real                   |           |          |
+ branchno | integer                |           |          |
+Indexes:
+    "staff_pkey" PRIMARY KEY, btree (staffno)
+Foreign-key constraints:
+    "branchno" FOREIGN KEY (branchno) REFERENCES branch(branchno)
+

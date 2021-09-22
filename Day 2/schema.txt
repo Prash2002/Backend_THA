@@ -1,0 +1,15 @@
+postgres=# CREATE SCHEMA mySchema;
+CREATE SCHEMA
+
+postgres=# CREATE TABLE mySchema.company(
+postgres(# ID INT,
+postgres(# NAME CHAR[50],
+postgres(# AGE INT,
+postgres(# CITY CHAR[50],
+postgres(# PRIMARY KEY(ID)
+postgres(# );
+CREATE TABLE
+
+postgres=# DROP SCHEMA mySchema CASCADE;
+NOTICE:  drop cascades to table myschema.company
+DROP SCHEMA
