@@ -1,0 +1,31 @@
+Start:
+
+    psql -U postgres
+
+CREATE USER prash WITH PASSWORD 'pass'
+
+CREATE DATABASE devs; 
+
+\l  ==> list all tables
+
+
+
+\c devs;  ==> connects
+
+CREATE TABLE table_name(
+    ID INT NOT NULL,
+    NAME CHAR[50],
+    AGE INT
+);
+
+GRANT ALL PRIVILEGES ON table_name TO user;
+
+\d ==> shows all tables 
+
+\d table_name ==> data related to tables
+
+DROP TABLE table_name  ==> deletes table
+
+\q ==> quit
+
+
